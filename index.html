@@ -119,17 +119,15 @@
         transform: translateY(0);
       }
 
-      /* Updated styles for navigation on mobile */
       .navbar-nav-scroll {
-        display: flex; /* Use flexbox to keep items in a row */
-        flex-wrap: nowrap; /* Prevent items from wrapping */
-        overflow-x: auto; /* Enable horizontal scrolling if items exceed screen width */
-        -webkit-overflow-scrolling: touch; /* for iOS smooth scrolling */
-        justify-content: center; /* Center items if there's space */
-        width: 100%; /* Ensure it takes full width */
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: hidden; 
+        justify-content: center;
+        width: 100%;
       }
       .navbar-nav-scroll .nav-item {
-        flex-shrink: 0; /* Prevent items from shrinking */
+        flex-shrink: 0;
       }
     </style>
   </head>
@@ -574,11 +572,9 @@
 
       const video = document.getElementById('backgroundVideo');
       
-      // Attempt to play the video on interaction and ensure it plays inline
       document.addEventListener('DOMContentLoaded', () => {
         video.play().catch(e => {
           console.log('Video autoplay prevented:', e);
-          // Fallback for browsers that block autoplay: try playing on first user interaction
           document.body.addEventListener('click', () => {
             video.play().catch(e => console.log('Video play on click prevented:', e));
           }, { once: true });
