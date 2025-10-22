@@ -119,15 +119,17 @@
         transform: translateY(0);
       }
 
-      /* Styles for navigation on mobile */
+      /* Updated styles for navigation on mobile */
       .navbar-nav-scroll {
-        overflow-x: auto;
-        white-space: nowrap;
+        display: flex; /* Use flexbox to keep items in a row */
+        flex-wrap: nowrap; /* Prevent items from wrapping */
+        overflow-x: auto; /* Enable horizontal scrolling if items exceed screen width */
         -webkit-overflow-scrolling: touch; /* for iOS smooth scrolling */
+        justify-content: center; /* Center items if there's space */
+        width: 100%; /* Ensure it takes full width */
       }
-      .navbar-nav-scroll .nav-link {
-        display: inline-block;
-        white-space: nowrap;
+      .navbar-nav-scroll .nav-item {
+        flex-shrink: 0; /* Prevent items from shrinking */
       }
     </style>
   </head>
@@ -185,7 +187,7 @@
 
     <div class="container-fluid p-0 mt-5 scroll-reveal">
       <div class="position-relative" style="height: 100vh; overflow: hidden;">
-        <video id="backgroundVideo" autoplay muted loop class="w-100 h-100" style="object-fit: cover;">
+        <video id="backgroundVideo" autoplay muted loop playsinline class="w-100 h-100" style="object-fit: cover;">
           <source src="Assets/BGproduct.mov" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -407,7 +409,7 @@
       </div>
     </div>
 
-    <div class="bg-white text-black section-spacing scroll-reveal" id="translation-section" style="padding-top: 150px;">
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 150px;">
       <div class="container">
         <div class="text-center mb-5">
           <h2 class="display-4 fw-bold text-black">
@@ -572,8 +574,15 @@
 
       const video = document.getElementById('backgroundVideo');
       
-      video.addEventListener('loadeddata', () => {
-        video.play().catch(e => console.log('Video autoplay prevented:', e));
+      // Attempt to play the video on interaction and ensure it plays inline
+      document.addEventListener('DOMContentLoaded', () => {
+        video.play().catch(e => {
+          console.log('Video autoplay prevented:', e);
+          // Fallback for browsers that block autoplay: try playing on first user interaction
+          document.body.addEventListener('click', () => {
+            video.play().catch(e => console.log('Video play on click prevented:', e));
+          }, { once: true });
+        });
       });
       
       video.addEventListener('ended', () => {
