@@ -118,6 +118,17 @@
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* Styles for navigation on mobile */
+      .navbar-nav-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch; /* for iOS smooth scrolling */
+      }
+      .navbar-nav-scroll .nav-link {
+        display: inline-block;
+        white-space: nowrap;
+      }
     </style>
   </head>
 
@@ -125,7 +136,7 @@
 
     <nav class="navbar fixed-top bg-white">
       <div class="container d-flex justify-content-center">
-        <ul class="nav gap-4">
+        <ul class="nav gap-4 navbar-nav-scroll">
           <li class="nav-item"><a class="nav-link text-black" href="#">Home</a></li>
           <li class="nav-item"><a class="nav-link text-black" href="#">Store</a></li>
           <li class="nav-item"><a class="nav-link text-black" href="#">Support</a></li>
