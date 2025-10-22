@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AirPods Pro 3</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+      .blur-transition-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(to bottom, white, rgba(255,255,255,0.6), transparent);
+        backdrop-filter: blur(5px);
+        z-index: 10;
+      }
+      
+      .blur-transition-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.6), white);
+        backdrop-filter: blur(5px);
+        z-index: 10;
+      }
+      
+      .expandable-item {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .expandable-item:hover {
+        background-color: rgba(0,0,0,0.1);
+      }
+      
+      .description {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .description.active {
+        max-height: 200px;
+      }
+      
+      .smooth-scroll {
+        scroll-behavior: smooth;
+      }
+      
+      .footer-links {
+        font-size: 0.85rem;
+      }
+      
+      .gradient-text {
+        background: linear-gradient(45deg, #8B5CF6, #A855F7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .section-spacing {
+        padding: 80px 0;
+      }
+      
+      .phone-container {
+        aspect-ratio: 9/16;
+        max-width: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+      
+      .phone-container:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      }
+      
+      .phone-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(255, 255, 255); 
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-align: center;
+        z-index: 2;
+      }
+      
+      .rounded-container {
+        border-radius: 15px;
+      }
+
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .scroll-reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-black smooth-scroll" style="font-family:'DM Sans', sans-serif;">
+
+    <nav class="navbar fixed-top bg-white">
+      <div class="container d-flex justify-content-center">
+        <ul class="nav gap-4">
+          <li class="nav-item"><a class="nav-link text-black" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-black" href="#">Store</a></li>
+          <li class="nav-item"><a class="nav-link text-black" href="#">Support</a></li>
+          <li class="nav-item"><a class="nav-link text-black" href="#"><i class="bi bi-search"></i></a></li>
+          <li class="nav-item"><a class="nav-link text-black" href="#"><i class="bi bi-bag"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container min-vh-100 d-flex align-items-center justify-content-center bg-white scroll-reveal">
+      <div class="row align-items-center text-center text-lg-start mt-5 g-5">
+
+        <div class="col-lg-7">
+          <p class="fs-1 fw-semibold mb-2">AirPods Pro 3</p>
+          <p class="display-4 fw-bold lh-sm mb-3" style="line-height: 1.2;">
+            The world's best in-ear Active Noise Cancellation.
+          </p>
+          <p class="fs-4 text-secondary mb-4">Up to 2x more than AirPods Pro 2.</p>
+          
+          <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start">
+            <button class="btn btn-outline-dark px-4 py-2 rounded-pill" onclick="scrollToFeatures()" style="background-color: white; border: 2px solid black; color: black;">
+              Learn more
+            </button>
+            <button class="btn btn-dark px-4 py-2 rounded-pill" style="background-color: black; border: 2px solid black; color: white;">
+              Buy now
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-5 text-center text-lg-end">
+          <div class="position-relative d-flex flex-column align-items-center">
+            <div class="mb-4" style="width: 380px; height: 380px; display: flex; align-items: center; justify-content: center;">
+              <img id="productImage" src="C:\Users\USER\Downloads\AirPods Pro 3\apbg6.png" alt="AirPods Pro 3" class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+            
+            <div class="d-flex justify-content-center gap-3 mt-2" style="margin-left: 20px;">
+              <button class="carousel-dot active btn btn-sm rounded-circle p-0" data-image="apbg6" style="width: 16px; height: 16px; background-color: black; border: none;"></button>
+              <button class="carousel-dot btn btn-sm rounded-circle p-0" data-image="apbg2" style="width: 12px; height: 12px; background-color: rgba(0,0,0,0.3); border: none;"></button>
+              <button class="carousel-dot btn btn-sm rounded-circle p-0" data-image="apbg3" style="width: 12px; height: 12px; background-color: rgba(0,0,0,0.3); border: none;"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container-fluid p-0 mt-5 scroll-reveal">
+      <div class="position-relative" style="height: 100vh; overflow: hidden;">
+        <video id="backgroundVideo" autoplay muted loop class="w-100 h-100" style="object-fit: cover;">
+          <source src="C:\Users\USER\Downloads\AirPods Pro 3\BGproduct.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="blur-transition-top"></div>
+        <div class="blur-transition-bottom"></div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" id="features-section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h1 class="display-5 fw-bold text-black">Take a closer look.</h1>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="bg-light p-4 rounded rounded-container">
+              <div class="expandable-item p-3 mb-2 border-bottom" onclick="toggleDescription(1)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Sound quality.</span>
+                </div>
+                <div class="description mt-3" id="desc1">
+                  <p class="text-muted">A new multiport acoustic architecture for deeper bass, a wider soundstage so you hear every note, and stunningly vivid vocal clarity.</p>
+                </div>
+              </div>
+              
+              <div class="expandable-item p-3 mb-2 border-bottom" onclick="toggleDescription(2)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Fit and feel.</span>
+                </div>
+                <div class="description mt-3" id="desc2">
+                  <p class="text-muted">The ear tips are now rotated inward for a more secure fit, and a new layer of foam-infused microspheres increases noise cancellation.</p>
+                </div>
+              </div>
+              
+              <div class="expandable-item p-3 mb-2 border-bottom" onclick="toggleDescription(3)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Heart rate sensing.</span>
+                </div>
+                <div class="description mt-3" id="desc3">
+                  <p class="text-muted">Our smallest heart rate sensor ever pulses invisible light to give you accurate workout metrics from the gym to the track.</p>
+                </div>
+              </div>
+              
+              <div class="expandable-item p-3 mb-2 border-bottom" onclick="toggleDescription(4)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Dust, sweat, and water resistance.</span>
+                </div>
+                <div class="description mt-3" id="desc4">
+                  <p class="text-muted">The first AirPods to be IP57 certified, AirPods Pro 3 can handle the sweatiest workouts and even a sudden downpour.</p>
+                </div>
+              </div>
+              
+              <div class="expandable-item p-3 mb-2 border-bottom" onclick="toggleDescription(5)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Touch controls.</span>
+                </div>
+                <div class="description mt-3" id="desc5">
+                  <p class="text-muted">Use simple gestures like pressing to play and swiping to adjust volume. And the new camera remote makes taking videos or pics a snap.</p>
+                </div>
+              </div>
+              
+              <div class="expandable-item p-3 mb-2" onclick="toggleDescription(6)">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-outline-dark rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <span class="fw-semibold">Charging case.</span>
+                </div>
+                <div class="description mt-3" id="desc6">
+                  <p class="text-muted">Next-generation Ultra Wideband technology increases the distance of Precision Finding by 1.5x, so you don't lose track of your AirPods.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="text-center">
+              <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg1.png" alt="AirPods Pro 3" class="img-fluid rounded-container" style="max-width: 100%; height: auto;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" id="noise-cancellation-section" style="padding-top: 150px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-4 fw-bold text-black">
+            The world's best in-ear<br>
+            Active Noise Cancellation
+          </h2>
+        </div>
+        
+        <div class="text-center mb-5" style="margin-top: 60px;">
+          <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg4.png" alt="AirPods Pro 3" class="img-fluid rounded-container" style="max-width: 100%; height: auto;">
+        </div>
+        
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <p class="text-muted text-center mb-5 fw-bold" style="font-size: 1.2rem;">
+              <strong>Introducing the world's best in-ear Active Noise Cancellation for the most immersive listening experience ever.<br>
+              Designed with an upgraded acoustic seal, AirPods Pro 3 automatically adapt to your environment and preferences.<br>
+              And new ultra-low-noise microphones remove even more unwanted sound.<br>
+              So you only hear what you want — in an unheard-of audio experience.</strong>
+            </p>
+            
+            <div class="row">
+              <div class="col-lg-6 text-center">
+                <p class="mb-1">
+                  <span class="text-muted" style="font-size: 1rem;">Removes up to</span><br>
+                  <span class="fs-3 fw-bold">2x more</span><br>
+                  <span class="text-muted" style="font-size: 1rem;">unwanted noise than AirPods Pro 2</span>
+                </p>
+              </div>
+              <div class="col-lg-6 text-center">
+                <p class="mb-1">
+                  <span class="text-muted" style="font-size: 1rem;">Removes up to</span><br>
+                  <span class="fs-3 fw-bold">4x more</span><br>
+                  <span class="text-muted" style="font-size: 1rem;">unwanted noise than original AirPods Pro</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 150px;">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="phone-container">
+              <img src="C:\Users\USER\Downloads\AirPods Pro 3\ptcon1.JPG" alt="Ultra-low-noise microphones" class="phone-image">
+            </div>
+            <p class="text-muted text-justify mt-3" style="font-size: 0.9rem; line-height: 1.4;">
+              <strong>New ultra-low-noise microphones.</strong> Using advanced computational audio to remove more noise around you than ever, AirPods Pro 3 let you zone in (or out) when you need to. And five all-new ear tips — including an XXS option — fuse a thin layer of soft foam to the silicone shell to give you even better acoustic performance.
+            </p>
+          </div>
+          
+          <div class="col-lg-3 col-md-6">
+            <div class="phone-container">
+              <img src="C:\Users\USER\Downloads\AirPods Pro 3\ptcon2.JPG" alt="Voice Isolation" class="phone-image">
+            </div>
+            <p class="text-muted text-justify mt-3" style="font-size: 0.9rem; line-height: 1.4;">
+              <strong>Voice Isolation.</strong> AirPods Pro 3 reduce background noise and isolate voices during calls. So whether you're on the bus or in a café, every conversation is loud and clear.
+            </p>
+          </div>
+          
+          <div class="col-lg-3 col-md-6">
+            <div class="phone-container">
+              <img src="C:\Users\USER\Downloads\AirPods Pro 3\ptcon3.JPG" alt="Adaptive Audio" class="phone-image">
+            </div>
+            <p class="text-muted text-justify mt-3" style="font-size: 0.9rem; line-height: 1.4;">
+              <strong>Adaptive Audio.</strong> AirPods Pro 3 combine Active Noise Cancellation with next-level Transparency, which makes your voice and the world around you sound even more natural and vibrant, intelligently adapting to your environment to prioritize what you need to hear, when you need to hear it.
+            </p>
+          </div>
+          
+          <div class="col-lg-3 col-md-6">
+            <div class="phone-container">
+              <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg3.png" alt="Conversation Awareness" class="phone-image">
+            </div>
+            <p class="text-muted text-justify mt-3" style="font-size: 0.9rem; line-height: 1.4;">
+              <strong>Conversation Awareness.</strong> AirPods Pro 3 can detect when you're talking to someone nearby and automatically lower the volume of whatever you're listening to. When you're done, the volume goes right back to where you had it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 150px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="fw-bold text-muted mb-2" style="font-size: 1rem;">Audio performance</p>
+          <h2 class="display-4 fw-bold text-black">The sound of science.</h2>
+        </div>
+        
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-10">
+            <p class="text-muted text-center fw-bold" style="font-size: 1.2rem;">
+              <strong>Powered by the Apple-designed H2 chip, AirPods Pro 3 feature a completely redesigned acoustic architecture that brings breathtaking, all-around-you audio to everything you listen to — from your pump-up playlist to your weekly FaceTime call with family.</strong>
+            </p>
+          </div>
+        </div>
+        
+        <div class="text-center mb-5">
+          <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg2.png" alt="Audio Performance" class="img-fluid rounded-container" style="max-width: 100%; height: auto;">
+        </div>
+        
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6">
+            <img src="C:\Users\USER\Downloads\AirPods Pro 3\conDapbg2-1.JPG" alt="Audio Architecture" class="img-fluid rounded-container" style="width: 100%; height: auto;">
+            <p class="text-muted text-justify mt-3 fw-bold" style="font-size: 1.2rem;">
+              <strong>A new multiport acoustic architecture with more precise airflow control — featuring an inward-facing microphone that points directly into the ear canal — delivers deeper bass, vivid vocal clarity, and a wider soundstage, so you never miss a note.</strong>
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <img src="C:\Users\USER\Downloads\AirPods Pro 3\conDapbg2-2.JPG" alt="H2 Chip" class="img-fluid rounded-container" style="width: 100%; height: auto;">
+            <p class="text-muted text-justify mt-3 fw-bold" style="font-size: 1.2rem;">
+              <strong>A custom-built driver and amplifier work with the H2 chip to create high-definition, three‑dimensional sound, with superlow distortion during playback.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" id="translation-section" style="padding-top: 150px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-4 fw-bold text-black">
+            Live Translation helps people<br>
+            communication across language.
+          </h2>
+        </div>
+        
+        <div class="row align-items-center justify-content-center" style="margin-top: 60px;">
+          <div class="col-lg-3 col-md-4 text-center">
+            <h3 class="fw-bold text-black" style="margin-right: -20px;">Hola</h3>
+          </div>
+          <div class="col-lg-4 col-md-4 text-center">
+            <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg5.png" alt="AirPods Pro 3" class="img-fluid rounded-container" style="max-width: 100%; height: auto;">
+          </div>
+          <div class="col-lg-3 col-md-4 text-center">
+            <h3 class="gradient-text fw-bold" style="margin-left: -20px;">Hello</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 250px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-4 fw-bold text-black">Introducing heart rate sensing.</h2>
+        </div>
+        
+        <div class="row justify-content-center mb-4">
+          <div class="col-lg-8">
+            <img src="C:\Users\USER\Downloads\AirPods Pro 3\Heartmoni.JPG" alt="Heart Rate Monitoring" class="img-fluid rounded-container" style="width: 100%; height: auto;">
+          </div>
+        </div>
+        
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-10">
+            <p class="text-muted text-center fw-bold" style="font-size: 1.2rem;">
+              <strong>All-new heart rate sensing helps you track your heart rate and calories burned during workouts.<sup>3</sup> Using LEDs that pulse invisible light 256 times per second — and sensor fusion from the accelerometers — AirPods Pro 3 give you incredibly accurate data for up to 50 different workout types in the Fitness app. And with a more secure in-ear fit, you can go all out and they won't come out.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 200px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="text-muted mb-2 fw-bold" style="font-size: 1.2rem;">Experience</p>
+          <h2 class="display-4 fw-bold text-black">Magic to your ears</h2>
+        </div>
+        
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-10">
+            <p class="text-muted text-center fw-bold" style="font-size: 1.2rem;">
+              <strong>AirPods Pro 3 are packed with features that make even the simplest moments seem extraordinary. From a completely redesigned acoustic architecture to superconvenient camera control,<sup>7</sup> there's so much more to AirPods than meets the ear.</strong>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <img src="C:\Users\USER\Downloads\AirPods Pro 3\mtears.JPG" alt="AirPods Pro 3" class="img-fluid rounded-container" style="width: 100%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white text-black section-spacing scroll-reveal" style="padding-top: 200px;">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-4 fw-bold text-black">All-day battery life</h2>
+          <h3 class="display-5 fw-bold text-black">They're workin'<br>9 to 5.</h3>
+        </div>
+        
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-10">
+            <p class="text-muted text-center fw-bold" style="font-size: 1.2rem;">
+              <strong>The MagSafe Charging Case is full of helpful features — like a built-in speaker and more powerful Precision Finding — that let you keep track of your AirPods Pro 3 no matter where they are.<sup>18</sup> And now just a single charge will take you all the way through the workday. Plus overtime.</strong>
+            </p>
+          </div>
+        </div>
+        
+        <div class="text-center mb-5">
+          <img src="C:\Users\USER\Downloads\AirPods Pro 3\apbg3.png" alt="Battery Life" class="img-fluid rounded-container" style="max-width: 100%; height: auto;">
+        </div>
+        
+        <div class="text-center">
+          <p class="fw-bold" style="font-size: 1.2rem;">
+            Up to<br>
+            <span class="display-3 fw-bold">8 hrs</span><br>
+            of battery life with Active Noise Cancellation on a single charge
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-white py-4" style="margin-top: 100px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 footer-links text-muted">
+              <span>Copyright © 2025 Apple Inc. All rights reserved.</span>
+              <span>|</span>
+              <a href="#" class="text-muted text-decoration-none">Privacy Policy</a>
+              <span>|</span>
+              <a href="#" class="text-muted text-decoration-none">Terms of Use</a>
+              <span>|</span>
+              <a href="#" class="text-muted text-decoration-none">Sales and Refunds</a>
+              <span>|</span>
+              <a href="#" class="text-muted text-decoration-none">Legal</a>
+              <span>|</span>
+              <a href="#" class="text-muted text-decoration-none">Site Map</a>
+              <span>|</span>
+              <span>Philippines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+      const images = ['apbg6', 'apbg2', 'apbg3'];
+      const productImage = document.getElementById('productImage');
+      const dots = document.querySelectorAll('.carousel-dot');
+      let currentIndex = 0;
+
+      function updateImage(index) {
+        productImage.src = `C:\\Users\\USER\\Downloads\\AirPods Pro 3\\${images[index]}.png`; 
+        
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.style.backgroundColor = 'black';
+            dot.style.width = '16px';
+            dot.style.height = '16px';
+            dot.classList.add('active');
+          } else {
+            dot.style.backgroundColor = 'rgba(0,0,0,0.3)';
+            dot.style.width = '12px';
+            dot.style.height = '12px';
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+          updateImage(currentIndex);
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          updateImage(currentIndex);
+        });
+      });
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage(currentIndex);
+      }, 5000);
+
+      const video = document.getElementById('backgroundVideo');
+      
+      video.addEventListener('loadeddata', () => {
+        video.play().catch(e => console.log('Video autoplay prevented:', e));
+      });
+      
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+      });
+
+      function toggleDescription(id) {
+        const description = document.getElementById(`desc${id}`);
+        const button = description.previousElementSibling.querySelector('button i');
+        
+        if (description.classList.contains('active')) {
+          description.classList.remove('active');
+          button.className = 'bi bi-plus';
+        } else {
+          description.classList.add('active');
+          button.className = 'bi bi-dash';
+        }
+      }
+
+      function scrollToFeatures() {
+        document.getElementById('features-section').scrollIntoView({ 
+          behavior: 'smooth' 
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const scrollRevealElements = document.querySelectorAll(".scroll-reveal");
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+              
+            } else {
+                
+            }
+          });
+        }, {
+          threshold: 0.1 
+        });
+
+        scrollRevealElements.forEach(element => {
+          observer.observe(element);
+        });
+
+        scrollRevealElements.forEach(element => {
+          if (element.getBoundingClientRect().top < window.innerHeight) {
+            element.classList.add("active");
+            
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
